@@ -21,8 +21,9 @@ def get_page_image(pdf_path, page_no, resolution):
     """
     For kwargs, see http://docs.wand-py.org/en/latest/wand/image.html#wand.image.Image
     """
-    page_path = "{0}[{1}]".format(pdf_path, page_no)
-    with wand.image.Image(filename=page_path, resolution=resolution) as img:
+    #page_path = "{0}[{1}]".format(pdf_path, page_no)
+    all_pages = wand.image.Image(filename=pdf_path, resolution=resolution)
+    with wand.image.Image(all_pages.sequence[page_no]) as img:
         if img.alpha_channel:
             img.background_color = wand.image.Color('white')
             img.alpha_channel = 'background'
